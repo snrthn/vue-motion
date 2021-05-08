@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { MessageBox } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // 创建一个 axios 实例
 const service = axios.create({
@@ -26,32 +28,70 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     response => {
-        const res = response.data
-        console.log(res)
-
-        // 处理响应状态码
-        if (res.code !== 200) {
-            console.log(res.message);
-
-            // 此处错误类型跟业务场景状态自由订制：如无权限、未登录等。
-            if (res.code === 500) {
-                console.log('服务器发生错误');
-            }
-
-            return Promise.reject(new Error(res.message || '网络错误'));
-
+        const code = response.status;
+        if (code < 200 || code > 300) {
+            MessageBox({
+                title: '提示',
+                message: response.message,
+                type: 'warning'
+            })
+            return Promise.reject(response)
         } else {
-
-            // 响应正常
-            return res;
-
+            return response.data
         }
     },
     error => {
-        // 处理响应发生错误
-        console.log(error.message);
+        let code = 0
+        let errorMsg = null;
+        try {
+            code = error.response.data.status
+        } catch (e) {
+            if (error.toString().indexOf('Error: timeout') !== -1) {
+                MessageBox({
+                    title: '提示',
+                    message: errorMsg || '网络请求超时',
+                    type: 'warning'
+                })
+                return Promise.reject(error)
+            }
+        }
         
-        return Promise.reject(error);
+        try {
+            errorMsg = error.response.data.message
+        } catch (e) {
+            errorMsg = null;
+        }
+
+        if (code) {
+            if (code === 401) {
+                MessageBox({
+                    title: '提示',
+                    message: errorMsg || '登录状态已过期',
+                    type: 'warning'
+                })
+            } else if (code === 403) {
+                MessageBox({
+                    title: '提示',
+                    message: errorMsg || '无权限访问',
+                    type: 'warning'
+                })
+            } else {
+                if (errorMsg !== undefined) {
+                    MessageBox({
+                        title: '提示',
+                        message: errorMsg || error.message,
+                        type: 'warning'
+                    })
+                }
+            }
+        } else {
+            MessageBox({
+                title: '提示',
+                message: errorMsg || '接口请求失败',
+                type: 'warning'
+            })
+        }
+        return Promise.reject(error)
     }
 )
 

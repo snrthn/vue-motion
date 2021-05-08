@@ -7,13 +7,10 @@ function install(Vue) {
   var reFun = require.context('@/filters/global', true, /\.js$/i)
   var reArr = reFun.keys()
   reArr.map(function(item) {
-    if (item === './index.js') return
     var filterObj = reFun(item)
-    if (typeof filterObj === 'function') {
-      Vue.filter([filterObj.name], filterObj)
-    } else if (typeof filterObj === 'object') {
-      for (var key in filterObj) {
-        Vue.filter(filterObj[key].name, filterObj[key])
+    for (let key in filterObj) {
+      if (typeof filterObj[key] === 'function') {
+        Vue.filter(key, filterObj[key]);
       }
     }
   })
