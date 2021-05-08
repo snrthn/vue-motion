@@ -48,6 +48,7 @@ module.exports = {
     index: {
       entry: 'src/' + themeName + '/main.js',
       template: 'public/index.html',
+      title: require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js')).title,
       filename: 'index.html',
       chunks: ['chunk-vendors', 'chunk-common', 'index']
     }
