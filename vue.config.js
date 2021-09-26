@@ -24,30 +24,39 @@ module.exports = {
   },
 
   // 配置路径别名
-	configureWebpack: {
-		resolve: {
-			alias: {
-				'@': path.resolve(__dirname, 'src/' + themeName),
-				'components': '@/componsnts',
-				'assets': '@/assets',
-				'styles': '@/styles',
-				'common': '@/common',
-				'router': '@/router',
-				'store': '@/store',
-				'store': '@/store',
-				'views': '@/views',
-				'utils': '@/utils',
-				'api': '@/api'
-			}
-		}
+	configureWebpack: (config) => {
+    if (process.env.NODE_ENV === "production") {
+      //生产包取消console debugger打印    
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true;
+    }
+    return {
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, 'src/' + themeName),
+          'components': '@/componsnts',
+          'assets': '@/assets',
+          'styles': '@/styles',
+          'common': '@/common',
+          'router': '@/router',
+          'store': '@/store',
+          'store': '@/store',
+          'views': '@/views',
+          'utils': '@/utils',
+          'api': '@/api'
+        }
+      }
+    }
 	},
 
   // 页面配置
   pages: {
     // 默认项目页面
     index: {
+      theme: themeName,
       entry: 'src/' + themeName + '/main.js',
       template: 'public/index.html',
+      title: require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js')).title,
       filename: 'index.html',
       chunks: ['chunk-vendors', 'chunk-common', 'index']
     }
