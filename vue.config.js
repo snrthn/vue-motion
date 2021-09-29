@@ -5,6 +5,9 @@ let path = require('path');
 // 取出主题名称（路径名）
 let themeName = getPagesName();
 
+// HTML配置
+let htmlConfig = require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js'));
+
 module.exports = {
   // 输出目录
   outputDir: 'dist/' + themeName,
@@ -52,6 +55,22 @@ module.exports = {
     }
 	},
 
+  // 配置 favicon
+  chainWebpack: (config) => {
+    config.module
+      .rule('favicon')
+      .test(/\.ico$/)
+      .use('file-loader')
+        .loader('file-loader')
+        .tap(options => {
+          options = {
+            name: 'favicon.ico'
+          }
+          return options;
+        })
+        .end()
+  },
+
   // 页面配置
   pages: {
     // 默认项目页面
@@ -59,7 +78,7 @@ module.exports = {
       theme: themeName,
       entry: 'src/' + themeName + '/main.js',
       template: 'public/index.html',
-      title: require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js')).title,
+      title: htmlConfig.title,
       filename: 'index.html',
       chunks: ['chunk-vendors', 'chunk-common', 'index']
     }
