@@ -1,4 +1,4 @@
-# 便携式轻型项目集合 imeik-platform-motion
+# 便携式轻型项目集合 vue-motion
 
 ## 安装项目
 ```
