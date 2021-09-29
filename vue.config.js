@@ -18,6 +18,9 @@ module.exports = {
   // 代码风格校验
   lintOnSave: false,
 
+  // 生产环境不使用 source-map
+  productionSourceMap: false,
+
   // 服务配置
   devServer: {
     open: true
