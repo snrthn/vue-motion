@@ -3,6 +3,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+// 动态设置icon
+// import 'utils/set-favicon';
+
 // 样式重置
 import 'styles/reset.css';
 

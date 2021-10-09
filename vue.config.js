@@ -8,6 +8,9 @@ let themeName = getPagesName();
 // HTML配置
 let htmlConfig = require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js'));
 
+// 打包分析
+let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   // 输出目录
   outputDir: 'dist/' + themeName,
@@ -51,7 +54,8 @@ module.exports = {
           'utils': '@/utils',
           'api': '@/api'
         }
-      }
+      },
+      plugins: [ new BundleAnalyzerPlugin() ]
     }
 	},
 
@@ -80,7 +84,8 @@ module.exports = {
       template: 'public/index.html',
       title: htmlConfig.title,
       filename: 'index.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'index']
+      chunks: ['chunk-vendors', 'chunk-common', 'index'],
+      jsLink: htmlConfig.scripts
     }
   }
 }
