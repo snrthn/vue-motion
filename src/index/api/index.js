@@ -25,7 +25,7 @@ export const postRequest = (options) => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         params: options.params,
-        data: JSON.stringify(options.data)
+        data: JSON.stringify(options.data || {})
     })
 }
 
@@ -39,7 +39,7 @@ export const putRequest = (options) => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         params: options.params,
-        data: JSON.stringify(options.data)
+        data: JSON.stringify(options.data || {})
     })
 }
 
@@ -53,7 +53,7 @@ export const deleteRequest = (options) => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         params: options.params,
-        data: JSON.stringify(options.data)
+        data: JSON.stringify(options.data || {})
     })
 }
 
