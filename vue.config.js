@@ -11,6 +11,10 @@ let htmlConfig = require(path.resolve(__dirname, 'src/' + themeName + '/utils/se
 // 打包分析
 let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+let plugins = [];
+
+if (isProd) plugins.push(new BundleAnalyzerPlugin());
+
 module.exports = {
   // 输出目录
   outputDir: 'dist/' + themeName,
@@ -55,7 +59,7 @@ module.exports = {
           'api': '@/api'
         }
       },
-      plugins: [ new BundleAnalyzerPlugin() ]
+      plugins
     }
 	},
 
