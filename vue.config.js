@@ -8,6 +8,9 @@ let themeName = getPagesName();
 // HTML配置
 let htmlConfig = require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js'));
 
+// 是否生产打包
+let isProd = process.env.NODE_ENV === 'production';
+
 // 打包分析
 let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
