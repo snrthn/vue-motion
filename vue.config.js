@@ -8,13 +8,21 @@ let themeName = getPagesName();
 // HTML配置
 let htmlConfig = require(path.resolve(__dirname, 'src/' + themeName + '/utils/set-title.js'));
 
+// 复制目录
+let CopyWebpackPlugin = require("copy-webpack-plugin");
+
 // 是否生产打包
 let isProd = process.env.NODE_ENV === 'production';
 
 // 打包分析
 let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-let plugins = [];
+let plugins = [new CopyWebpackPlugin([
+  {
+    from: path.resolve(__dirname, 'src/' + themeName + '/assets/static/'),
+    to: 'static/'
+  }
+])];
 
 if (isProd) plugins.push(new BundleAnalyzerPlugin());
 
@@ -92,7 +100,8 @@ module.exports = {
       title: htmlConfig.title,
       filename: 'index.html',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
-      jsLink: htmlConfig.scripts
+      jsLink: htmlConfig.scripts,
+      cssLink: htmlConfig.styles
     }
   }
 }

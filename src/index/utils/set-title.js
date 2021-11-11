@@ -8,5 +8,7 @@ module.exports = {
     // 标题
     title: '默认主题',
     // 动态载入脚本
-    scripts: []
+    scripts: [],
+    // 动态载入样式
+    styles: []
 }
