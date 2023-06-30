@@ -1,0 +1,74 @@
+/* 全局样式 */
+
+
+/* 页面背景色 */
+.card-page  {
+	overflow: auto;
+	box-sizing: border-box;
+	background: #ffffff;
+	overflow-x: hidden;
+}
+
+
+/* 页面板块 */
+.page-item {
+	overflow: hidden;
+	background: #ffffff;
+	border-radius: 5px;
+}
+
+
+/* 表格样式 */
+.app-table, .app-table th, .app-table td {
+	width: calc(100% - 16px);
+	margin: 8px;
+	border-collapse: collapse;
+	border: 2px solid #cdcdcd;
+	text-align: center;
+	color: #262a33;
+}
+
+.app-table th, .app-table td {
+	vertical-align: middle;
+}
+
+.app-table th {
+	padding: 10px 4px;
+	height: 38px;
+	line-height: 24px;
+	font-weight: bold;
+	background: #e1e5f1;
+	font-size: 16px;
+}
+
+.app-table td {
+	padding: 6px 4px;
+	height: 36px;
+	line-height: 20px;
+	font-size: 14px;
+}
+
+
+.app-table tbody tr:nth-child(odd) {
+	background: none;
+}
+
+
+.app-table tbody tr:nth-child(even) {
+	background: #f2f3f7;
+}
+
+/* 字体加粗 */
+.text-bold {
+	font-weight: bold;
+}
+
+/* 成功状态 */
+.green {
+	color: #00cc00;
+}
+
+/* 失败状态 */
+.red {
+	color: #cc0000;
+}
